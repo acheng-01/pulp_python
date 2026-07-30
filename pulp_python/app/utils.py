@@ -540,17 +540,17 @@ def python_content_to_download_info(content, base_path, domain=None):
     }
 
 
-def write_simple_index(project_names, streamed=False):
+def write_simple_index(project_names):
     """Writes the simple index."""
     simple = Template(simple_index_template)
     context = {
         "SIMPLE_API_VERSION": SIMPLE_API_VERSION,
         "projects": ((x, canonicalize_name(x)) for x in project_names),
     }
-    return simple.stream(**context) if streamed else simple.render(**context)
+    return simple.render(**context)
 
 
-def write_simple_detail(project_name, project_packages, streamed=False):
+def write_simple_detail(project_name, project_packages):
     """Writes the simple detail page of a package."""
     detail = Template(simple_detail_template, autoescape=True)
     context = {
@@ -558,7 +558,7 @@ def write_simple_detail(project_name, project_packages, streamed=False):
         "project_name": project_name,
         "project_packages": project_packages,
     }
-    return detail.stream(**context) if streamed else detail.render(**context)
+    return detail.render(**context)
 
 
 def write_simple_index_json(project_names):
